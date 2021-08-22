@@ -44,6 +44,12 @@ app.post('/batalha', (req,res) => {         // Aqui é a batalha
     res.send(dataBase.batalhaPokemon(req.body.id1, req.body.id2))
 })
 
-app.post('/curar', (req, res))
+app.post('/curar', (req, res) => {
+    res.send(dataBase.curarPokemon(req.body.id))
+})
+
+app.post('/tipo',(req, res) =>{
+    res.send(dataBase.mostrarPorTipoPokemons(req.body.tipo))
+})
     
 app.listen(3003)
