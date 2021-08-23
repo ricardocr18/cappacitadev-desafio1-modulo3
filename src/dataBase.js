@@ -49,7 +49,7 @@ function batalhaPokemon(id1, id2) {
         if(pokemon1.tipo == pokemon2.fraqueza){
             pokemon2.hp = pokemon2.hp - superEfetivo
         } else if(pokemon1.tipo == pokemon2.resistencia){
-            pokemon2.hp = pokemon2.hp - nãoefetivo
+            pokemon2.hp = pokemon2.hp - naoEfetivo
         } else {
             pokemon2.hp = pokemon2.hp -efetivo
         }
@@ -59,7 +59,7 @@ function batalhaPokemon(id1, id2) {
         if(pokemon2.tipo == pokemon1.fraqueza){
             pokemon1.hp = pokemon1.hp - superEfetivo
         } else if(pokemon2.tipo == pokemon1.resistencia){
-            pokemon1.hp = pokemon1.hp - nãoefetivo
+            pokemon1.hp = pokemon1.hp - naoEfetivo
         } else {
             pokemon1.hp = pokemon1.hp -efetivo
         }
@@ -72,38 +72,24 @@ function batalhaPokemon(id1, id2) {
 
 }
 
-//=================================================================
+//======== Curar Pokemon Desafio 3=====================
+
 function curarPokemon(id){
-    let pocaoHp = 20
-    let pokemonRec = pokemons[id]
+    let energeticoHp = 20
+    let pokemonVida = pokemons[id]
 
-    if (pokemons.legth === 0) {
-        return `Òpsss... Por favor, verifique se o ID pokemon é valido ou se o mesmp já foi cadastrado anteriormente, obrigado`
-    }else if (pokemonRec.hp <90){
-        pokemonRec.hp += pocaoHp
-        return `${pokemonRec.nome}: ${pokemonRec.hp}`
-    }else if (pokemonRec.hp == 90) {
-        pokemonRec.hp = 100
-        return `${pokemonRec}: ${pokemonRec.hc}`
-    }else if (pokemonRec.hp >=100) {
-        return `O HP de ${pokemonRec.nome} já está no máximo, obrigado`
+  
+    if (pokemonVida.hp <90){
+        pokemonVida.hp += energeticoHp
+        return `${pokemonVida.nome}: ${pokemonVida.hp}`
+    }else if (pokemonVida.hp == 90) {
+        pokemonVida.hp = 100
+        return `${pokemonVida.nome}: ${pokemonVida.hc}`
+    }else if (pokemonVida.hp >=100) {
+        return `O HP de ${pokemonVida.nome} Estou 100% para Luta ;)`
     }
 }
-
-function mostrarPorTipoPokemons(tipo) {
-    if (pokemons.length ===0)
-        return`Nenhum Pokemon ainda foi cadastrado`
-    else {
-        const tipoPokemon = pokemons.filter(pokemons => pokemons.tipo == tipo)
-        if (tipoPokemon.length ===0) {
-            return `Opsss... Não encontramos nenhum pokemon do tipo ${tipo}.`
-        } else {
-            return tipoPokemon
-        }
-    }
-}
-
 
 
 module.exports = {salvarPokemons, mostrarPokemon, mostrarPokemons, atualizarPokemon, deletarPokemon,
-batalhaPokemon, curarPokemon, mostrarPorTipoPokemons } //Está exportanto as funções
+batalhaPokemon, curarPokemon } //Está exportanto as funções
