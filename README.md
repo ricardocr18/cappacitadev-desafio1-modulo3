@@ -18,3 +18,14 @@ Fase To Hero -  Desafio é construir uma nova rota para fazer uma requisição p
 ### Cappacitadev - Programação de IAs Conversarcionais
 
 - https://www.cappacita.com.br/
+
+
+Na fase TO HERO do #CAPPACITADEV você contará com uma imersão na área de desenvolvimento de software! Vai aprender sobre integração entre sistemas web, criar sua primeira API e contará com um conteúdo avançado sobre programação.
+
+Módulo 3 - Criando seu Primeiro Projeto (javascript, github, nodejs, ES6)
+
+Módulo 4 - Criando sua Primeira API (JEST/JOI, MySQL, RestAPI )
+
+Módulo 5 - Complementando seu Projeto (Frontend, Cloud)
+
+Após esta jornada no universo de desenvolvimento de chatbots, você estará apto para ingressar no mercado. Todos os participantes que concluírem a Fase TO HERO receberão nosso certificado de conclusão do curso oferecido pela Comunidade Cappacita.
