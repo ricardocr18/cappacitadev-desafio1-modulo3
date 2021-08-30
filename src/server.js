@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const dataBase = require('./database/dataBase')
+const dataBase = require('./database/databaseMysql')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -13,8 +13,8 @@ app.get('/pokemons/:id', (req, res) => {
     res.send(dataBase.mostrarPokemon(req.params.id)) //Aqui mostrar o pokemon po id
 })
 
-app.post('/pokemons', (req, res) => {           //Aqui estou salvando os Pokemons, usando POSTcom seus dados
-    const pokemon = dataBase.salvarPokemons({
+app.post('/pokemons', async (req, res) => {           //Aqui estou salvando os Pokemons, usando POSTcom seus dados
+    const pokemon = await dataBase.salvarPokemons({
         nome: req.body.nome,
         tipo: req.body.tipo,
         fraqueza: req.body.fraqueza,

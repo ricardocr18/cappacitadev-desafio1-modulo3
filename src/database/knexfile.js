@@ -4,7 +4,8 @@ module.exports = {
       host : '127.0.0.1',
       user : 'root',
       password : 'Linux@31',
-      database : 'pokemon'
-    }
+      database : 'pokemon.pokemons'
+    },
+    debug:true
 };
 

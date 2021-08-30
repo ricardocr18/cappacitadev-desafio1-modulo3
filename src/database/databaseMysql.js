@@ -2,14 +2,31 @@ const {databaseConnection} = require('./connection')
 
 const pokemons = {}
 
-function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREATE
+async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREATE
     /*
     pokemon == {
         nome: 'Pikachu'
         tipo: 'Elétrico'
     }
     */
-    const queryInsertPokemon = `INSERT INTO pokemons(nome_pokemon, tipo) VALUES ('Pikachu', 'Elétrico')`
+    const queryInsertPokemon = `INSERT INTO pokemons(nome_pokemon, tipo) VALUES ('${pokemon.nome}', '${pokemon.tipo}')`
+    const result = await databaseConnection.raw(queryInsertPokemon)
+    
+    console.log(result)
+
+    if (result){
+        return{
+            nome: pokemon.nome,
+            tipo: pokemon.tipo,
+            id: result[0].insertId  //Sei da descrição do ID devido a documentação do https://knexjs.org/
+        }
+    }else{
+        console.error("Deu erro jovem !!!")
+        return {
+            error: "Erro na inserção"
+        }
+    }
+
 }
 
 function mostrarPokemon(id) {      // aqui só aparece o 1 pokemon com seu id - READ
