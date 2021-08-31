@@ -14,8 +14,6 @@ async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREAT
 
     const result = await databaseConnection.raw(queryInsertPokemon)
     
-    console.log(result)
-
     if (result){
         return{
             nome: pokemon.nome,
@@ -33,12 +31,19 @@ async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREAT
 
 }
 
-function mostrarPokemon(id) {      // aqui só aparece o 1 pokemon com seu id - READ
-    return pokemons [id] || {}
+async function mostrarPokemon(id) {      // aqui só aparece o 1 pokemon com seu id - READ
+
+    const querySelectPokemon = `SELECT * FROM pokemons WHERE id = ${id}`
+    const result = await databaseConnection.raw(querySelectPokemon)
+    return result[0]
+       
 }
 
-function mostrarPokemons(){     //Aqui mostra todos os Pokemons do array - REad
-    return Object.values(pokemons)
+async function mostrarPokemons(){     //Aqui mostra todos os Pokemons do array - REad
+
+    const querySelectPokemon = `SELECT * FROM pokemons`
+    const result = await databaseConnection.raw(querySelectPokemon)
+    return result[0]
 }
 
 function atualizarPokemon(id, pokemon){ //UPDATE
