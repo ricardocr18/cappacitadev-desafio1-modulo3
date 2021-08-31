@@ -9,7 +9,9 @@ async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREAT
         tipo: 'Elétrico'
     }
     */
-    const queryInsertPokemon = `INSERT INTO pokemons(nome_pokemon, tipo) VALUES ('${pokemon.nome}', '${pokemon.tipo}')`
+    const queryInsertPokemon = `INSERT INTO pokemons(nome_pokemon, tipo, fraquesa, resistencia) VALUES
+    ('${pokemon.nome}', '${pokemon.tipo}', '${pokemon.fraquesa}', '${pokemon.resistencia}' )`
+
     const result = await databaseConnection.raw(queryInsertPokemon)
     
     console.log(result)
@@ -18,6 +20,8 @@ async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREAT
         return{
             nome: pokemon.nome,
             tipo: pokemon.tipo,
+            fraqueza: pokemon.fraqueza,
+            resistencia: pokemon.resistencia,
             id: result[0].insertId  //Sei da descrição do ID devido a documentação do https://knexjs.org/
         }
     }else{
