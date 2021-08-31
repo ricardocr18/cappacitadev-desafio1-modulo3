@@ -6,6 +6,6 @@ module.exports = {
       password : 'Linux@31',
       database : 'pokemon'
     },
-    debug:true
-};
+    debug:false
+}
 

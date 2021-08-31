@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const dataBase = require('./database/databaseMysql')
+const dataBase = require('./database/databaseKnex')
 const bodyParser = require('body-parser')
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -24,8 +24,8 @@ app.post('/pokemons', async (req, res) => {           //Aqui estou salvando os P
     res.send(pokemon)
 })
 
-app.put('/pokemons/:id', (req, res) => {            // Aqui faço a atualização do Pokemon
-    const pokemon = dataBase.atualizarPokemon(req.params.id, {
+app.put('/pokemons/:id', async (req, res) => {            // Aqui faço a atualização do Pokemon
+    const pokemon = await dataBase.atualizarPokemon(req.params.id, {
         nome: req.body.nome,
         tipo: req.body.tipo,
         fraqueza: req.body.fraqueza,
@@ -36,8 +36,8 @@ app.put('/pokemons/:id', (req, res) => {            // Aqui faço a atualizaçã
     res.send(pokemon)  
 })
 
-app.delete('/pokemons/:id', (req, res) => {     //Aqui estou deletando
-    res.send(dataBase.deletarPokemon(req.params.id))
+app.delete('/pokemons/:id', async (req, res) => {     //Aqui estou deletando
+    res.send(await dataBase.deletarPokemon(req.params.id))
 })
 
 app.post('/batalha', (req,res) => {         // Aqui é a batalha

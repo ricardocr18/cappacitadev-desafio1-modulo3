@@ -1,18 +1,17 @@
+//Esse arquivo foi contruido na aula 11 para demonstrar mais segurança com os dados
+const { default: knex } = require('knex')
 const {databaseConnection} = require('./connection')
 
-const pokemons = {}
-
 async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREATE
-    /*
-    pokemon == {
-        nome: 'Pikachu'
-        tipo: 'Elétrico'
+   
+    const insertPokemon = {
+        nome_pokemon: pokemon.nome,
+        tipo: pokemon.tipo,
+        fraqueza: pokemon.fraqueza,
+        resistencia: pokemon.resistencia
     }
-    */
-    const queryInsertPokemon = `INSERT INTO pokemons(nome_pokemon, tipo, fraqueza, resistencia) VALUES
-    ('${pokemon.nome}', '${pokemon.tipo}', '${pokemon.fraqueza}', '${pokemon.resistencia}' )`
 
-    const result = await databaseConnection.raw(queryInsertPokemon)
+    const result = await databaseConnection('pokemons').insert(insertPokemon) //Funcionalidade do Knex para segurança para nãp mostrar as Query do SQL
     
     if (result){
         return{
@@ -20,7 +19,7 @@ async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREAT
             tipo: pokemon.tipo,
             fraqueza: pokemon.fraqueza,
             resistencia: pokemon.resistencia,
-            id: result[0].insertId  //Sei da descrição do ID devido a documentação do https://knexjs.org/
+            id: result[0]  //Sei da descrição do ID devido a documentação do https://knexjs.org/
         }
     }else{
         console.error("Deu erro jovem !!!")
@@ -33,35 +32,50 @@ async function salvarPokemons (pokemon){   //Função de salvar o Pokemon- CREAT
 
 async function mostrarPokemon(id) {      // aqui só aparece o 1 pokemon com seu id - READ
 
-    const querySelectPokemon = `SELECT * FROM pokemons WHERE id = ${id}`
-    const result = await databaseConnection.raw(querySelectPokemon)
+    const result = await databaseConnection('pokemons').where({id})
     return result[0]
        
 }
 
 async function mostrarPokemons(){     //Aqui mostra todos os Pokemons do array - REad
 
-    const querySelectPokemon = `SELECT * FROM pokemons`
-    const result = await databaseConnection.raw(querySelectPokemon)
-    return result[0]
+    const result = await databaseConnection('pokemons')
+    return result
 }
 
-function atualizarPokemon(id, pokemon){ //UPDATE
-    pokemons[id] = pokemon
-    return pokemon
-}
+async function atualizarPokemon(id, pokemon){ // atualizar Pokemons
+    
+    const updatePokemon = {
+        nome_pokemon: pokemon.nome,
+        tipo: pokemon.tipo,
+        fraqueza: pokemon.fraqueza,
+        resistencia: pokemon.resistencia
+    }
 
-function deletarPokemon(id) {
-    sequence._id = sequence._id -1
-    const pokemonDeletado = pokemons[id]
-    pokemons.splice(id,1)   // aqui eu deleto o pokem com determinado id
-    pokemons.forEach(pokemon => {
-        if(pokemon.id > id) {
-            pokemon.id = pokemon.id -1
+    const result = await databaseConnection('pokemons').where({id}).update(updatePokemon) //uso o where para não atualizar toda a tabela
+    
+    if (result){
+        return{
+            nome: pokemon.nome, //essas linhas de dados poderiam ser substituido pelo ...pokemon
+            tipo: pokemon.tipo,
+            fraqueza: pokemon.fraqueza,
+            resistencia: pokemon.resistencia,
+            id  //Sei da descrição do ID devido a documentação do https://knexjs.org/
         }
+    }else{
+        console.error("Deu erro jovem !!!")
+        return {
+            error: "Erro na inserção"
+        }
+    }
 
-    })
-    return pokemonDeletado
+}
+
+async function deletarPokemon(id) {
+
+    const result = await databaseConnection('pokemons').where({id}).del()
+    return result[0]
+   
 }
 
 function batalhaPokemon(id1, id2) {
